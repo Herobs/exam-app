@@ -21,6 +21,11 @@ class PasswordController extends Controller
     use ResetsPasswords;
 
     /**
+     * Reset email subject
+     */
+    protected $subject = '密码重置链接';
+
+    /**
      * Create a new password controller instance.
      *
      * @return void

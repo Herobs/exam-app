@@ -22,10 +22,16 @@ class CreateExamsTable extends Migration
             $table->dateTime('start')->index();
             // time of exam duration is seconds
             $table->mediumInteger('duration')->unsigned();
-            // the exam onwer
+            // the exam holder
             $table->integer('holder')->unsigned();
             // the type of the exam(login strategy)
-            $table->tinyInteger('type')->unsigned();
+            $table->enum('type', [
+                'student',
+                'account',
+                'password',
+            ]);
+            // exam public password
+            $table->string('password', 16)->nullable();
             // hidden the exam
             $table->boolean('hidden');
         });

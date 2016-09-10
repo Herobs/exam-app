@@ -4,3 +4,4 @@ bower_components
 /public/storage
 
 .env
+composer.lock

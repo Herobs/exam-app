@@ -1,0 +1,140 @@
+$navicon-color: #fff !default
+$navicon-transition: .3s !default
+$navicon-base: 1rem !default
+$navicon-space: $navicon-base / 4 !default
+$navicon-size: 2rem !default
+$navicon-radius: $navicon-size / 14 !default
+
+$drawer-width: 60%
+$drawer-width-xs: 50%
+$drawer-width-sm: 40%
+
+@mixin navicon-lines
+  display: inline-block
+  width: $navicon-size
+  height: $navicon-size / 7
+  background: $navicon-color
+  border-radius: $navicon-radius
+  transition: $navicon-transition
+
++new(navicon)
+  position: fixed
+  left: 10px
+  top: 10px
+  width: 36px
+  padding: 2px 6px 10px
+  border: none
+  background: none
+  cursor: pointer
+  z-index: 100
+  user-select: none
+  transition: $navicon-transition
+  background: rgba($brand-primary, .8)
+
+  &:focus
+    outline: none
+
+  @media (min-width: $screen-md-min)
+    display: none
+
+  +has(lines)
+    @include navicon-lines
+    position: relative
+    &:before, &:after
+      @include navicon-lines
+      position: absolute
+      left: 0
+      content: ''
+      transform-origin: $navicon-size/14 center
+
+    &:before
+      top: $navicon-size / 4
+    &:after
+      top: -$navicon-size / 4
+
+  +when(x)
+    +if(open)
+      left: $drawer-width
+      left: calc(#{$drawer-width} - 36px)
+      @media(min-width: $screen-xs-min)
+        left: $drawer-width-xs
+        left: calc(#{$drawer-width-xs} - 36px)
+      @media(min-width: $screen-sm-min)
+        left: $drawer-width-sm
+        left: calc(#{$drawer-width-sm} - 36px)
+      +has(lines, navicon)
+        transform: scale3d(1.125, 1.125, 1.125)
+        background: transparent
+        &:before, &:after
+          transform-origin: 50% 50%
+          top: 0
+          width: $navicon-size
+        &:before
+          transform: rotate3d(0, 0, 1, 45deg)
+        &:after
+          transform: rotate3d(0, 0, 1, -45deg)
+
++new(page-drawer)
+  position: fixed
+  top: 0
+  bottom: 0
+  left: 0
+  width: 100%
+  z-index: 0
+  background: rgba(0, 0, 0, .1)
+  transition: 180ms ease-in left
+  overflow: auto
+
+  +has(info)
+    padding: 15px
+    border-bottom: 1px solid $gray-light
+
+  +has(logout)
+    margin-top: 5px
+
+  +has(divider)
+    height: 4px
+    margin: 5px 0
+    background: rgba(64, 64, 64, .8)
+
+  li.active
+    background: $gray-light
+
+  @media (min-width: $screen-md-min)
+    position: absolute
+    top: 0
+    left: 0
+    width: 20%
+
++new(page-wrapper)
+  position: relative
+  left: 0
+  padding: 24px
+  background: inherit
+  z-index: 10
+  transition: 200ms ease-out left
+
+  +has(mask)
+    position: fixed
+    top: 0
+    bottom: 60px
+    left: inherit
+    width: 100%
+    background: inherit
+    z-index: -1
+
+    background: inherit
+    z-index: -1
+
+  +if(open)
+    left: $drawer-width
+    @media (min-width: $screen-xs-min)
+      left: $drawer-width-xs
+    @media (min-width: $screen-sm-min)
+      left: $drawer-width-sm
+
+  @media (min-width: $screen-md-min)
+    width: 80%
+    margin-left: 20%
+    +has(mask)
+      display: none

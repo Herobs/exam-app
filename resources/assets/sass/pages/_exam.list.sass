@@ -1,0 +1,22 @@
+.exam-item
+  margin-top: 10px
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+  .exam-item
+    width: 49%
+    margin-left: 2%
+
+  .exam-item:nth-child(2n+1)
+    margin-left: 0
+
+@media (min-width: $screen-md-min)
+  .exam-item
+    width: 33%
+    margin-left: 1%
+
+  .exam-item:nth-child(3n+1)
+    width: 32%
+    margin-left: 0
+
+.exam-header
+  margin-bottom: 5px

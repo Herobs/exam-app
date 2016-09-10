@@ -15,12 +15,28 @@ class CreateAnswersTable extends Migration
         Schema::create('answers', function (Blueprint $table) {
             // answer id
             $table->increments('id');
-            // problem id
-            $table->integer('problem')->unsigned();
+            // student id
+            $table->integer('student')->unsigned();
+            // question id
+            $table->integer('question')->unsigned();
+            // question type
+            $table->enum('type', [
+                'true-false',
+                'multi-choice',
+                'blank-fill',
+                'short-answer',
+                'general',
+                'program-blank-fill',
+                'program',
+                'database-blank-fill',
+                'database',
+            ]);
             // submit time
-            $table->dateTime('submit_at');
+            $table->dateTime('submit');
             // score of this answer
-            $table->tinyInteger('score')->unsigned();
+            $table->tinyInteger('score')->unsigned()->nullable();
+            // create an index with student and question
+            $table->index(['student', 'question']);
         });
     }
 

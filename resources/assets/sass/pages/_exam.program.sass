@@ -1,0 +1,40 @@
++new(exam-program-nav)
+  position: relative
+  margin-bottom: 20px
+  +has(item)
+    float: left
+    padding: 8px 16px
+    border: 1px solid $gray-light
+    border-right: none
+    color: #fff
+    &:last-child
+      border-right: 1px solid $gray-light
+    +when(untouched)
+      color: inherit
+    +when(touched)
+      background: $brand-info
+    +when(accepted)
+      background: $brand-success
+    +when(wrong)
+      background: $brand-danger
+    +if(active)
+      color: $brand-primary
+      border-bottom: 3px solid
+      padding-bottom: 6px
+
++new(exam-program)
+  +has(title)
+    font-size: 1.4em
+    margin-bottom: 5px
+  +has(answer)
+    margin-bottom: 10px
+    textarea
+      font-family: Menlo, Monaco, Consolas, "Courier New", monospace
+  +has(control)
+    label
+      margin-left: 20px
+      font-size: 18px
+      vertical-align: sub
+    select
+      display: inline
+      width: 128px

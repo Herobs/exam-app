@@ -1,0 +1,58 @@
++new(exam-info)
+  +has(block)
+    h3
+      border-bottom: 1px solid $gray-light
+
+  +has(countdown)
+    font-size: 2em
+    margin-top: 2em
+    text-align: center
+
+  +has(questions)
+    position: relative
+
+  +has(question)
+    float: left
+    padding: 8px 16px
+    border: 1px solid $gray-light
+    color: #fff
+    +when(untouched)
+      color: inherit
+    +when(touched)
+      background: $brand-info
+    +when(accepted)
+      background: $brand-success
+    +when(wrong)
+      background: $brand-danger
+
+  +has(samples)
+    margin-top: 20px
+    margin-bottom: 10px
+  +has(sample)
+    display: inline
+    margin-left: 10px
+    &:first-child
+      margin-left: 0
+    span
+      padding: 2px 15px
+      margin-right: 5px
+      border: 1px solid $gray-light
+  +has(touched)
+    background: $brand-info
+  +has(accepted)
+    background: $brand-success
+  +has(wrong)
+    background: $brand-danger
+
+
+.exam-info__question + .exam-info__question
+  border-left: none
+
+.countdownable
+  font-size: 1.5em
+  margin-top: 20px
+  span
+    padding: 8px
+    border: 1px solid
+    border-radius: 2px
+    margin: 10px

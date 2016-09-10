@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Exam;
 
 class ExamsSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class ExamsSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Exam::class, 10)->create();
+        factory(Exam::class, 200)->create();
     }
 }

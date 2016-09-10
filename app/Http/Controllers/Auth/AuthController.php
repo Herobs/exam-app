@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -49,9 +49,16 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'name' => 'required|max:16',
+            'email' => 'required|email|max:32|unique:users',
             'password' => 'required|min:6|confirmed',
+            'student' => 'required|max:16|unique:users',
+            'major' => 'max:32',
+        ], [
+            'name.required' => '必须填写真实姓名。',
+            'email.unique' => '该电子邮件地址已经被使用',
+            'password.confirmed' => '两次输入的密码不一样。',
+            'student.unique' => '该学号已经被使用，请尝试联系您的老师解决。',
         ]);
     }
 
@@ -67,6 +74,8 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'student' => $data['student'],
+            'major' => $data['major'],
         ]);
     }
 }

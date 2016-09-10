@@ -12,4 +12,17 @@ class Exam extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['start'];
+
+    // get session key
+    public function getSessionKey()
+    {
+        return 'exam_' . $this->id;
+    }
 }
