@@ -5974,6 +5974,12 @@ table a:not(.btn), .table a:not(.btn) {
   padding: 8px;
   font-size: 14px; }
 
+.has-error .input-group-btn .btn {
+  background: #d9534f; }
+
+.checkboxs > .checkbox {
+  margin: 0 !important; }
+
 .vehicle-divider {
   height: 10px; }
 

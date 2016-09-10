@@ -19,4 +19,11 @@ class QuestionMultiChoice extends Model
      * @var string
      */
     protected $table = 'question_multi_choice';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id', 'order'];
 }

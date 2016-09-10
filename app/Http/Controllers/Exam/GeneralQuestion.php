@@ -51,9 +51,9 @@ class GeneralQuestion extends Controller
             ->where('type', $this->type)
             ->pluck('id');
 
+        $errors = array();
         foreach ($questions as $q) {
             $file = $request->file($q);
-            $maxFileSize = getSizeInBytes(ini_get('upload_max_filesize'));
             if ($file->isValid()) {
                 $answersObject = Answers::where('student', $auth->student->id)
                     ->where('question', $q)
@@ -78,9 +78,11 @@ class GeneralQuestion extends Controller
                 $answerObject->save();
                 // move file
                 $file->move(storage_path('files'), $q);
+            } else {
+                $errors['file'.$q] = '上传失败，可能是不支持的文件类型，或者文件体积过大。';
             }
         }
 
-        return back();
+        return back()->withErrors();
     }
 }

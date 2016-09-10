@@ -13,12 +13,12 @@
     <div class="btn-group">
         @unless ($exam->type === 'password')
             <a href="/admin/exam/{{ $exam->id }}/student/new" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> 添加</a>
-            <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-import"></i> 导入</a>
+            <a href="/admin/exam/{{ $exam->id }}/student/import" class="btn btn-default"><i class="glyphicon glyphicon-import"></i> 导入</a>
         @endunless
-        <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-export"></i> 导出</a>
+        <a href="/admin/exam/{{ $exam->id }}/student/export" class="btn btn-default"><i class="glyphicon glyphicon-export"></i> 导出</a>
     </div>
     <div class="btn-group">
-        <a href="#" class="btn btn-default warn" data-content="确定要删除所有的学生信息吗？"><i class="glyphicon glyphicon-trash"></i> 清空</a>
+        <a href="/admin/exam/{{ $exam->id }}/student/clear" class="btn btn-default warn" data-content="确定要删除所有的学生信息吗？"><i class="glyphicon glyphicon-trash"></i> 清空</a>
     </div>
 </div>
 <table class="table table-striped table-bordered mt10">
@@ -44,7 +44,7 @@
             @if ($exam->type === 'account')
                 <a href="/admin/exam/{{ $exam->id }}/student/{{ $student->id }}">编辑</a>
             @endif
-                <a class="warn" data-content="确定要删除该学生的信息吗？" href="/admin/exam/{{ $exam->id }}/student/{{ $student->id }}/delete">删除</a>
+                <a class="warning" data-warning="确定要删除该学生的信息吗？" href="/admin/exam/{{ $exam->id }}/student/{{ $student->id }}/delete">删除</a>
             </td>
         </tr>
     @endforeach

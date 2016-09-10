@@ -13,5 +13,4 @@
 <li{!! pif($active === 'program', ' class="active"') !!}><a href="/admin/exam/{{ $exam->id }}/program"><i class="glyphicon glyphicon-console"></i> 程序设计题</a></li>
 <li class="page-drawer__divider"></li>
 <li><a href="/admin"><i class="glyphicon glyphicon-home"></i> 管理首页</a></li>
-<li><a href="/admin/exams"><i class="glyphicon glyphicon-list"></i> 我的考试</a></li>
 @endsection

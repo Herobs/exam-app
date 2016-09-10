@@ -20,9 +20,9 @@
     <p>建议不要在考试开始后更改考试类型，以免引起未知的错误。</p>
 </div>
 <div class="row">
-    <form class="col-md-8" action="{{ url()->current() }}" method="POST">
+    <form class="col-md-8" action="/admin/exam" method="POST">
         {{ csrf_field() }}
-        <input type="hidden" name="id" value="10">
+        <input type="hidden" name="id" value="{{ $exam->id }}">
         <legend>{{ $exam->name }}</legend>
         <div class="form-group{{ pif($errors->has('name'), ' has-error') }}">
             <label for="name">考试名称</label>
@@ -81,8 +81,8 @@
         <div class="form-group{{ pif($errors->has('hidden'), ' has-error') }}">
             <label for="hidden">隐藏考试</label>
             <select class="form-control" id="hidden" name="hidden">
-                <option value="false"{!! pif($exam->type === 'false', ' selected="selected"') !!}>否</option>
-                <option value="true"{!! pif($exam->type === 'true', ' selected="selected"') !!}>是</option>
+                <option value="false"{!! pif(old('type') === 'false' || $exam->type === 'false', ' selected="selected"') !!}>否</option>
+                <option value="true"{!! pif(old('type') === 'true' || $exam->type === 'true', ' selected="selected"') !!}>是</option>
             </select>
             @if ($errors->has('hidden'))
                 <span class="help-block">

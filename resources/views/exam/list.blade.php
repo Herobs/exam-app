@@ -32,7 +32,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id="keywords" name="keywords" value="{{ $keywords }}" placeholder="关键词">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
                         </div>
@@ -61,7 +61,7 @@
                     持续时间：{{ formatSeconds($exam->duration) }}
                 </div>
                 <div>
-                    老师：{{ $exam->teacher }}
+                    管理老师：{{ $exam->teacher }}
                 </div>
             </a>
         @endforeach

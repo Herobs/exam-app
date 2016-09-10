@@ -30,7 +30,7 @@
     <body>
         <div class="page-drawer">
             <div class="page-drawer__info">
-                <i class="glyphicon glyphicon-user"></i> {{ $auth->student->name }}({{ $auth->student->student }})
+                <i class="glyphicon glyphicon-user"></i> {{ $auth->student->name }} ({{ $auth->student->student }})
                 <div class="page-drawer__logout">
                     <a href="{{ '/exam/'.$auth->exam->id.'/logout' }}">退出登录</a>
                 </div>

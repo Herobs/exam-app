@@ -13,8 +13,6 @@ class CreateStandardBlankFillsTable extends Migration
     public function up()
     {
         Schema::create('standard_blank_fill', function (Blueprint $table) {
-            // exam id(for query standard answers in a query)
-            $table->integer('exam')->unsigned()->index();
             // question id
             $table->integer('id')->unsigned()->index();
             // option order

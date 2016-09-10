@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Judge\JudgeServiceException;
 
 class Handler extends ExceptionHandler
 {
@@ -45,6 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+        if ($e instanceof JudgeServiceException) {
+            return back()
+                ->withInput($request->except(['_token']))
+                ->withErrors(['judge' => $e->getMessage()]);
+        } else {
+            return parent::render($request, $e);
+        }
     }
 }

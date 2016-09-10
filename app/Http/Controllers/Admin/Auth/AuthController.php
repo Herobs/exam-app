@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Auth;
 
 use Auth;
 use Validator;
@@ -103,14 +103,14 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
         if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
             // check current user have enough right to login
-            if (hasRight(Auth::guard('admin')->user()->rights, config('constants.RIGHT_LOGIN'))) {
+            if (hasRight(Auth::guard('admin')->user()->rights, config('rights.RIGHT_LOGIN'))) {
                 return $this->handleUserWasAuthenticated($request, $throttles);
             } else {
                 Auth::guard('admin')->logout();
                 return back()
                     ->withInput($request->only($this->loginUsername(), 'remember'))
                     ->withErrors([
-                        $this->loginUsername() => '账号需要经过管理员审核后才能登录。',
+                        $this->loginUsername() => '账号需要经过管理员审核后才能登录。（'.config('system.admin_email').'）',
                     ]);
             }
         }

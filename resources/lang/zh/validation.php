@@ -10,7 +10,7 @@ return [
     'array' => '必须为数组。',
     'before' => '时间必须在 :date 之前。',
     'between' => [
-        'number' => '大小必须在 :min 和 :max 之间。',
+        'numeric' => '大小必须在 :min 和 :max 之间。',
         'string' => '长度必须在 :min 和 :max 之间。',
         'file' => '文件大小必须在 :min 和 :max 之间。',
     ],
@@ -34,14 +34,14 @@ return [
     'ip' => '无效的 IP 地址。',
     'json' => '无效的 JSON 字符串。',
     'max' => [
-        'number' => '超过最大值 :max。',
+        'numeric' => '超过最大值 :max。',
         'string' => '超过最大长度 :max。',
         'file' => '超过最大文件大小 :max。',
     ],
     'mimetypes' => '文件的类型必须为下列值之一：:values。',
     'mimes' => '文件的类型必须为下列值之一：:values。',
     'min' => [
-        'number' => '必须大于 :min。',
+        'numeric' => '必须大于 :min。',
         'string' => '长度必须大于 :min。',
         'file' => '文件长度必须大于 :mix。',
     ],
@@ -58,7 +58,7 @@ return [
     'required_without_all' => '必须填写本项。',
     'same' => '必须和 :field 的值一样。',
     'size' => [
-        'number' => '必须等于 :value。',
+        'numeric' => '必须等于 :value。',
         'string' => '长度必须等于 :value。',
         'file' => '文件长度必须等于 :value',
     ],

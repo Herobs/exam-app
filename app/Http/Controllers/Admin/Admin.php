@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -10,28 +11,41 @@ use App\Models\Exam;
 
 class Admin extends Controller
 {
-    public function getIndex(Request $request, Auth $auth)
+    public function index(Auth $auth)
     {
         $exams = Exam::where('holder', $auth->admin->id)
             ->orderBy('start', 'desc')
             ->take(5)
             ->get();
 
-        return view('admin.index', [
-            'auth' => $auth,
-            'exams' => $exams,
-        ]);
+        return view('admin.index', compact('auth', 'exams'));
     }
 
-    public function getExams(Request $request, Auth $auth)
+    public function get(Auth $auth)
     {
-        $exams = Exam::where('holder', $auth->admin->id)
-            ->orderBy('start', 'desc')
-            ->paginate(15);
+        return view('admin.edit', compact('auth'));
+    }
 
-        return view('admin.exams', [
-            'auth' => $auth,
-            'exams' => $exams,
+    public function save(Request $request, Auth $auth)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:16',
+            'tel' => 'required|max:16',
+            'newpass' => 'min:6|confirmed',
+            'password' => 'required',
         ]);
+        if (Hash::check($request->input('password'), $auth->admin->password)) {
+            $auth->admin->name = $request->input('name');
+            $auth->admin->tel = $request->input('tel');
+            if ($request->has('newpass')) {
+                $auth->admin->password = bcrypt($request->input('newpass'));
+            }
+            $auth->admin->save();
+            return redirect('/admin');
+        } else {
+            return back()
+                ->withInput($request->all())
+                ->withErrors(['password' => '密码错误。']);
+        }
     }
 }

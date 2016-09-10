@@ -115,8 +115,9 @@ $(function() {
   // tooltips
   $('[data-toggle="tooltip"]').tooltip()
   // warnings
-  $('.warn').click(function(e) {
-    if (!confirm($(this).attr('data-content'))) {
+  $('.warning').click(function(e) {
+    var warning = $(this).attr('data-warning');
+    if (warning && !confirm(warning)) {
       e.preventDefault();
     }
   });

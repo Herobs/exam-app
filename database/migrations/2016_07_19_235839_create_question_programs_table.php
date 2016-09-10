@@ -15,6 +15,8 @@ class CreateQuestionProgramsTable extends Migration
         Schema::create('question_program', function (Blueprint $table) {
             // question id
             $table->integer('id')->unsigned()->index();
+            // remote id
+            $table->integer('remote')->unsigned();
             // title
             $table->string('title')->nullable();
             // output limit

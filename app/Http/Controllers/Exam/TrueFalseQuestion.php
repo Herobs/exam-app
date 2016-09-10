@@ -48,8 +48,8 @@ class TrueFalseQuestion extends Controller
     public function save(ExamAuth $auth, Request $request)
     {
         if (!$auth->running) return redirect('/exam/'.$auth->exam->id);
-        $questions = Question::select('questions.id', 'questions.score', 'standard_true_false.answer')
-            ->leftJoin('standard_true_false', 'standard_true_false.id', '=', 'questions.id')
+        $questions = Question::select('questions.*', 'standard_true_false.answer')
+            ->join('standard_true_false', 'standard_true_false.id', '=', 'questions.ref')
             ->where('exam', $auth->exam->id)
             ->where('type', $this->type)
             ->get();

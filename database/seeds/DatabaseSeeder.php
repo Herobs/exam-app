@@ -87,6 +87,7 @@ class DatabaseSeeder extends Seeder
         foreach ($exams as $exam) {
             // true-false questions
             $trueFalse = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'true-false',
                 'description' => '在 C 语言中，`int` 数据类型占用 4 字节内存。',
@@ -103,6 +104,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $trueFalse = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'true-false',
                 'description' => 'PHP 是世界上最好的语言！！',
@@ -120,6 +122,7 @@ class DatabaseSeeder extends Seeder
 
             // multi-choice questions
             $multiChoice = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'multi-choice',
                 'description' => '选出下列选项中的关系型数据库。',
@@ -155,6 +158,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $multiChoice = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'multi-choice',
                 'description' => '下面哪些选项是 C 语言中的基本数据类型。',
@@ -191,6 +195,7 @@ class DatabaseSeeder extends Seeder
 
             // blank-fill questions
             $blankFill = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'blank-fill',
                 'description' => '@@ 是 Google 开源的一款 Web 前端 MVVC 框架，目前的最新版本为 @@。',
@@ -200,12 +205,10 @@ class DatabaseSeeder extends Seeder
             ]);
             DB::table('standard_blank_fill')->insert([
                 [
-                    'exam' => $exam,
                     'id' => $blankFill,
                     'order' => 0,
                     'answer' => 'Angular',
                 ], [
-                    'exam' => $exam,
                     'id' => $blankFill,
                     'order' => 1,
                     'answer' => 'r\'/^2|Angular 2$/\'',
@@ -214,6 +217,7 @@ class DatabaseSeeder extends Seeder
             // short-answer questions
             DB::table('questions')->insert([
                 [
+                    'user' => $teacher,
                     'exam' => $exam,
                     'type' => 'short-answer',
                     'description' => '请简述什么是软件。',
@@ -225,6 +229,7 @@ class DatabaseSeeder extends Seeder
             // general questions
             DB::table('questions')->insert([
                 [
+                    'user' => $teacher,
                     'exam' => $exam,
                     'type' => 'general',
                     'description' => '使用你最擅长的语言设计一个[布隆过滤器](https://en.wikipedia.org/wiki/Bloom_filter)。',
@@ -235,6 +240,7 @@ class DatabaseSeeder extends Seeder
             ]);
             // program questions
             $program = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'program',
                 'description' => 'A + B',
@@ -294,6 +300,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $program = DB::table('questions')->insertGetId([
+                'user' => $teacher,
                 'exam' => $exam,
                 'type' => 'program',
                 'description' => 'A + B 进阶',

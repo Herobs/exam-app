@@ -19,4 +19,11 @@ class StandardBlankFill extends Model
      * @var string
      */
     protected $table = 'standard_blank_fill';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id', 'order'];
 }

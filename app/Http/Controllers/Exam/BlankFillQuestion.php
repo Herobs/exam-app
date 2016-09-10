@@ -26,10 +26,6 @@ class BlankFillQuestion extends Controller
     public function show(ExamAuth $auth)
     {
         if ($auth->pending) return redirect('/exam/'.$auth->exam->id);
-        $questions = Question::where('exam', $auth->exam->id)
-            ->where('type', $this->type)
-            ->orderBy('id', 'asc')
-            ->get();
 
         $answers = Answers::select('answer_blank_fill.*', 'answers.question')
             ->join('answer_blank_fill', 'answers.id', '=', 'answer_blank_fill.id')
@@ -39,16 +35,18 @@ class BlankFillQuestion extends Controller
                 $as[$a->question . '-' . $a->order] = $a->answer;
                 return $as;
             }, []);
-
-
-        foreach ($questions as $question) {
-            $order = 0;
-            $question->description = preg_replace_callback('/@@/', function($m) use (&$answers, &$question, &$order, &$auth) {
-                $key = $question->id . '-' . $order++;
-                $answer = isset($answers[$key]) ? $answers[$key] : '';
-                return '<input class="form-control" type="text" name="'.$question->id.'[]" value="'.$answer.'"'.($auth->ended ? ' disabled' : '').' />';
-            }, $question->description);
-        }
+        $questions = Question::where('exam', $auth->exam->id)
+            ->where('type', $this->type)
+            ->orderBy('id', 'asc')
+            ->get()
+            ->each(function($question) use ($answers, $auth) {
+                $order = 0;
+                $question->description = preg_replace_callback('/@@/', function($m) use ($answers, $question, $auth, &$order) {
+                    $key = $question->id . '-' . $order++;
+                    $answer = isset($answers[$key]) ? $answers[$key] : '';
+                    return '<input class="form-control" type="text" name="'.$question->id.'[]" value="'.$answer.'"'.pif($auth->ended, ' disabled').' />';
+                }, $question->description);
+            });
 
         return view('exam.blank-fill', [
             'active' => $this->type,
@@ -66,7 +64,9 @@ class BlankFillQuestion extends Controller
             ->where('type', $this->type)
             ->get();
 
-        $standards = Standard::where('exam', $auth->exam->id)
+        $standards = Standard::select('questions.id', 'standard_blank_fill.order', 'standard_blank_fill.answer')
+            ->join('questions', 'questions.ref', '=', 'standard_blank_fill.id')
+            ->where('questions.exam', $auth->exam->id)
             ->get()
             ->reduce(function($sds, $sd) {
                 $sds[$sd->id.'-'.$sd->order] = $sd->answer;

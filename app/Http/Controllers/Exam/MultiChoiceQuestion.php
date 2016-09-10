@@ -32,7 +32,8 @@ class MultiChoiceQuestion extends Controller
             ->where('student', $auth->student->id)
             ->get()
             ->keyBy('question');
-        $questions = Question::join('question_multi_choice as mc', 'mc.id', '=', 'questions.ref')
+        $questions = Question::select('questions.*', 'question_multi_choice.order', 'question_multi_choice.option')
+            ->join('question_multi_choice', 'questions.ref', '=', 'question_multi_choice.id')
             ->where('exam', $auth->exam->id)
             ->where('type', $this->type)
             ->orderBy('questions.id', 'asc')
@@ -72,8 +73,8 @@ class MultiChoiceQuestion extends Controller
     public function save(ExamAuth $auth, Request $request)
     {
         if (!$auth->running) return redirect('/exam/'.$auth->exam->id);
-        $questions = Question::select('questions.id', 'questions.score', 'standard_multi_choice.answer')
-            ->leftJoin('standard_multi_choice', 'standard_multi_choice.id', '=', 'questions.id')
+        $questions = Question::select('questions.*', 'standard_multi_choice.answer')
+            ->join('standard_multi_choice', 'standard_multi_choice.id', '=', 'questions.ref')
             ->where('exam', $auth->exam->id)
             ->where('type', $this->type)
             ->get();

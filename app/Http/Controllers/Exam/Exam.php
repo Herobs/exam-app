@@ -10,9 +10,6 @@ use App\Models\Exam as ExamModel;
 use App\Models\Question;
 use App\Models\Answer;
 
-/**
- * Exam infomation
- */
 class Exam extends Controller
 {
     public function getIndex(ExamAuth $auth)

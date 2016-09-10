@@ -85,7 +85,7 @@ class ExamAuthenticate
         }
 
         // exam questions
-        $questions = Question::selectRaw('type, count(*) as count')
+        $questions = Question::select('type')
             ->where('exam', $exam->id)
             ->groupBy('type')
             ->get()

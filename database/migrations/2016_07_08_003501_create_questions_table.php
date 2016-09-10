@@ -15,8 +15,11 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             // question id
             $table->increments('id');
+            // the user this question belong to
+            // 0 for public question
+            $table->integer('user')->unsigned();
             // the exam this question belong to
-            $table->integer('exam')->unsigned()->index();
+            $table->integer('exam')->unsigned();
             // question type
             $table->enum('type', [
                 'true-false',
@@ -37,6 +40,10 @@ class CreateQuestionsTable extends Migration
             $table->smallInteger('source')->unsigned();
             // reference(0 stand this is a new question)
             $table->integer('ref')->unsigned();
+            // create an index with exam and type
+            $table->index(['exam', 'type']);
+            // create an index with user and type
+            $table->index(['user', 'type']);
         });
     }
 

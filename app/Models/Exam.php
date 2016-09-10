@@ -20,13 +20,6 @@ class Exam extends Model
      */
     protected $dates = ['start'];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['id', 'holder'];
-
     // get session key
     public function getSessionKey()
     {
